@@ -58,6 +58,38 @@ To run the implementation templates provided in these skills, you need:
     # export OPENAI_API_KEY="your-openai-api-key"
     ```
 
+### 🤖 AI Coding Assistants Configuration
+
+To enable AI assistants (like **Cursor**, **Claude Code**, or **GitHub Copilot/Codex**) to load and follow these skills while pair-programming:
+
+#### 1. Cursor Custom Instructions (`.cursorrules`)
+Create a `.cursorrules` file at the root of your workspace:
+```markdown
+# EAg-RAG Development Guidelines
+Always refer to the implementation guidelines under `./skills/` when building or refactoring RAG components:
+- For document parsing & table extraction, follow `./skills/01-enriched-document-ingestion/SKILL.md`.
+- For query optimization & query routing, follow `./skills/02-agentic-query-routing/SKILL.md`.
+- For vector/BM25 retrieval & post-processing, follow `./skills/03-hybrid-retrieval-postprocessing/SKILL.md`.
+- For automated evaluation, follow `./skills/04-llm-as-a-judge-evaluation/SKILL.md`.
+```
+
+#### 2. Claude Code Setup
+When starting a session with Claude Code, you can ingest the skill pack guidelines by running:
+```bash
+# Add the skills directory to Claude Code context
+# (For tools supporting workspace context additions)
+# Or reference them directly in your queries:
+claude "Review my retriever implementation against ./skills/03-hybrid-retrieval-postprocessing/SKILL.md"
+```
+
+#### 3. GitHub Copilot & Codex Instructions (`.github/copilot-instructions.md`)
+Create a `.github/copilot-instructions.md` file in your workspace to teach Copilot how to build EAg-RAG structures:
+```markdown
+# RAG System Rules
+- When writing indexing/parsing scripts, implement the Table-Aware chunking defined in `./skills/01-enriched-document-ingestion/SKILL.md`.
+- When writing retrieval code, implement hybrid Vector+BM25 search and chronological sorting as defined in `./skills/03-hybrid-retrieval-postprocessing/SKILL.md`.
+```
+
 ---
 
 ## 📖 License
